@@ -1,13 +1,41 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+  <!-- 轮播图 -->
+  <view class="page-section page-section-spacing swiper">
+    <swiper indicator-dots="{{indicatorDots}}"
+      autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{background}}" wx:key="*this">
+        <swiper-item>
+          <view class="swiper-item {{item}}"></view>
+        </swiper-item>
+      </block>
+    </swiper>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+  <!-- 帖子动态 -->
+  <view class="post-title">
+    <text>帖子动态</text>
+  </view>
+  <include src="../common/wxml/line.wxml" />
+  <view
+    class="post-list" 
+    wx:for="{{ postList }}" 
+    wx:for-item="post" 
+    wx:key="index">
+    <view class="user">
+      <image src="{{ post.avatar }}" class="avatar"></image>
+      <view class="user-info-text">
+        <text class="username">{{ post.username }}</text>
+        <text class="posttime">{{ post.posttime }}</text>
+      </view>
+    </view>
+    <view class="text-content">{{ post.textContent }}</view>
+    <view class="post-images-container" wx:if="{{ post.images.length != 0 }}">
+      <image src="{{ post.images[0] }}" mode="aspectFill" ></image>
+    </view>
+    <view class="like-comments">
+      <text class="like iconfont icon-appreciate_light">{{ post.likePeaple.length }}</text>
+      <text class="comment iconfont icon-comment_light">{{ post.comments.length }}</text>
+    </view>
+    <include src="../common/wxml/line.wxml" />
   </view>
 </view>

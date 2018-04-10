@@ -1,21 +1,115 @@
+@import "../../lib/style/font.wxss";
+
 /**index.wxss**/
-.userinfo {
+.container {
+  padding-top: 20rpx;
+}
+/* 轮播 */
+.page-section-spacing {
+  width: 100%;
+}
+
+.demo-text-1 {
+  background: #787ff8;
+}
+
+.demo-text-2 {
+  background: #ff4432;
+}
+
+.demo-text-3 {
+  background: #9099f9;
+}
+
+.swiper-item{
+  display: block;
+  height: 400rpx;
+}
+
+.post-title {
+  width: 100%;
+  height: 80rpx;
   display: flex;
-  flex-direction: column;
   align-items: center;
 }
 
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
+.post-title > text {
+  position: relative;
+  left: 30rpx;
+}
+
+.user {
+  position: relative;
+  left: 30rpx;
+  height: 130rpx;
+  display: flex;
+  align-items: center;
+}
+
+.post-list, .user {
+  width: 100%;
+}
+
+.avatar {
+  width: 100rpx;
+  height: 100rpx;
   border-radius: 50%;
 }
 
-.userinfo-nickname {
-  color: #aaa;
+.user-info-text {
+  display: inline-block;
+  padding-left: 16rpx;
 }
 
-.usermotto {
-  margin-top: 200px;
+.user-info-text .username, .user-info-text .posttime {
+  display: block;
+}
+
+.user-info-text .username {
+  font-weight: bold;
+}
+
+.user-info-text .posttime {
+  font-size: 30rpx;
+  font-weight: 500;
+}
+
+/* 多行文本溢出显示省略号 */
+.text-content {
+  padding-left: 20rpx;
+  padding-right: 30rpx;
+  padding-top: 10rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  font-size: 36rpx;
+}
+
+.post-images-container {
+  width: 100%;
+  border-bottom: 1px solid #cccccc;
+  display: flex;
+  justify-content: left;
+  margin-top: 30rpx;
+  margin-bottom: 10rpx;
+  padding-left: 30rpx;
+}
+
+.post-images-container image {
+  max-width: 50%;
+}
+
+.like-comments {
+  width: 100%;
+  height: 50rpx;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.like-comments text {
+  padding-right: 40rpx;
+  font-size: 34rpx;
 }
