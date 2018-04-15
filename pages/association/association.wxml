@@ -1,2 +1,17 @@
 <!--pages/association/association.wxml-->
-<text>pages/association/association.wxml</text>
+<!-- 车协列表 -->
+<view class="association-list">
+  <block wx:for="{{ associationList }}" wx:key="index">
+    <view bindtap="goAssociationDetail" class="association-item">
+      <image src="{{ item.image }}" class="association-image"></image>
+      <view class="association-intro-text">
+        <text class="association-title">{{ item.title }}</text>
+        <text class="association-intro">{{ item.intro }}</text>
+      </view>
+    </view>
+  </block>
+  <!-- 点击创建车协 -->
+  <view class="add-button" bindtap="goCreateItem">
+    <text class="iconfont icon-round_add"></text>
+  </view>
+</view>

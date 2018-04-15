@@ -1,0 +1,20 @@
+<!--pages/join-activity/join-activity.wxml-->
+<view>
+  <view class="title">姓名</view>
+  <view class="input-content">
+    <input class="name" placeholder="请输入你的真实姓名" ></input>
+  </view>
+  <view class="title">所要报名项目</view>
+  <view class="input-content">
+    <input class="nickname" placeholder="请输入你所要报名项目" ></input>
+  </view>
+  <view class="title">备注</view>
+  <view class="input-content">
+    <textarea 
+      class=intro" 
+      placeholder="备注"></textarea>
+  </view>
+  <view class="submit-btn">
+    <button type='primary'>提交</button>
+  </view>
+</view>

@@ -1,4 +1,5 @@
 {
   "component": true,
-  "usingComponents": {}
+  "usingComponents": {},
+  "navigationBarTitleText": "车协列表"
 }

@@ -1,0 +1,8 @@
+<!--pages/association-detail/association-detail.wxml-->
+<view>
+  与帖子详情类似
+  <!-- 点击加入车协 -->
+  <view class="add-button" bindtap="createAssociationBtn">
+    <text class="iconfont icon-round_add"></text>
+  </view>
+</view>

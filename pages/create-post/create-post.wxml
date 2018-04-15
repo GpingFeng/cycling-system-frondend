@@ -1,0 +1,27 @@
+<!--pages/create-post/create-post.wxml-->
+<view>
+  <view class="text">
+    <textarea 
+      placeholder="please input" 
+      focus="true"></textarea>
+  </view>
+  <view class="choose-title">请选择图片</view>
+  <view class="choose-images">
+    <view class="uploader-files">
+      <block wx:for="{{imageList}}" wx:for-item="image" wx:key="index">
+        <view class="uploader-file">
+          <image class="uploader-img" src="{{image}}" data-src="{{image}}" bindtap="previewImage"></image>
+        </view>
+      </block>
+      <view class="uploader-input-box">
+        <view class="uploader-input iconfont icon-add" bindtap="chooseImage">
+      </view>
+      </view>
+    </view>
+  </view>
+  <view class="submit-btn">
+    <button type='primary'>发表</button>
+  </view>
+</view>
+
+  

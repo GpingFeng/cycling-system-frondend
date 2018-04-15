@@ -5,7 +5,16 @@ const app = getApp()
 Page({
   data: {
     // 控制轮播组件的配置
-    background: ['demo-text-1', 'demo-text-2', 'demo-text-3'],
+    background: [{
+      name:'跨年活动',
+      src: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=334127971,2490462282&fm=200&gp=0.jpg'
+    }, {
+      name: '跨年活动',
+      src: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=360205134,2931201299&fm=27&gp=0.jpg'
+      }, {
+        name: '跨年活动',
+        src:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=334127971,2490462282&fm=200&gp=0.jpg'
+      }],
     // 指示点
     indicatorDots: true,
     // 控制自动播放
@@ -16,7 +25,7 @@ Page({
     duration: 500,
     // 帖子列表
     postList: [{
-      avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523337445308&di=7417f0d3f80e31be606b03fcdb2cd21f&imgtype=0&src=http%3A%2F%2Fimg0.ph.126.net%2FVWS-eq4UdnSFTy0CkNGi2g%3D%3D%2F2040693581252325900.jpg',
+      avatar: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2312869786,122661194&fm=27&gp=0.jpg',
       posttime: '昨天4：00',
       username: 'Gping',
       textContent: '下午五点半广工正门来骑车吧下午五点半广工正门来骑车吧下午五点半广工正门来骑车吧下午五点半广工正门来骑车吧下午五点半广工正门来骑车吧下午五点半广工正门来骑车吧下午五点半广工正门来骑车吧下午五点半广工正门来骑车吧',
@@ -67,6 +76,18 @@ Page({
   bindViewTap: function() {
     wx.navigateTo({
       url: '../logs/logs'
+    })
+  },
+  // 跳转到具体的帖子页面
+  goPostItem: function () {
+    wx.navigateTo({
+      url: '../post-detail/post-detail',
+    })
+  },
+  // 点击创建帖子
+  createPostBtn: function () {
+    wx.navigateTo({
+      url: '../create-post/create-post',
     })
   },
   onLoad: function () {

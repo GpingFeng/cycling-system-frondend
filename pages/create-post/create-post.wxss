@@ -1,0 +1,60 @@
+/* pages/create-post/create-post.wxss */
+@import "../../lib/style/font.wxss";
+.text {
+  padding: 30rpx 30rpx 0;
+  height: 350rpx;
+  border-bottom: 1px solid #cccccc;
+}
+
+.choose-title {
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 30rpx;
+  padding-left: 30rpx;
+  border-bottom: 1px solid #cccccc;
+}
+
+.choose-images {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.uploader-files {
+  width: 100%;
+  display: flex;
+  flex-direction:rows;
+  flex-wrap:wrap;
+}
+
+ .uploader-file {
+  display: inline-block;
+} 
+
+.uploader-img {
+  margin-top: 30rpx;
+  width: 200rpx;
+  height: 200rpx;
+  margin-left: 30rpx;
+}
+
+.uploader-input-box {
+  margin: 30rpx 0 0 30rpx;
+  display: inline-block;
+  width: 200rpx;
+  height: 200rpx;
+  border: 2rpx solid #cccccc;
+  text-align: center;
+  line-height: 200rpx;
+}
+
+.uploader-input-box .uploader-input {
+  font-size: 100rpx;
+}
+
+.submit-btn {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  margin: 10rpx 0;
+}

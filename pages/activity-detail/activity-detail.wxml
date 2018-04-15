@@ -1,0 +1,8 @@
+<!--pages/activity-detail/activity-detail.wxml-->
+<view>
+  活动详情（与帖子详情类似）
+  <!-- 点击报名 -->
+  <view class="add-button" bindtap="joinActivityBtn">
+    <text class="iconfont icon-round_add"></text>
+  </view>
+</view>

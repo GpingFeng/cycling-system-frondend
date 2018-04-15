@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'iconfont';  /* project id 622805 */
-  src: url('//at.alicdn.com/t/font_622805_3gt8lns38650cnmi.eot');
-  src: url('//at.alicdn.com/t/font_622805_3gt8lns38650cnmi.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_622805_3gt8lns38650cnmi.woff') format('woff'),
-  url('//at.alicdn.com/t/font_622805_3gt8lns38650cnmi.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_622805_3gt8lns38650cnmi.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_622805_cqdjvw6jj2oi529.eot');
+  src: url('//at.alicdn.com/t/font_622805_cqdjvw6jj2oi529.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_622805_cqdjvw6jj2oi529.woff') format('woff'),
+  url('//at.alicdn.com/t/font_622805_cqdjvw6jj2oi529.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_622805_cqdjvw6jj2oi529.svg#iconfont') format('svg');
 }
 
 .iconfont {
@@ -14,6 +14,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.icon-add:before { content: "\e767"; }
+
+.icon-round_add:before { content: "\e6d9"; }
+
+.icon-round_add_fill:before { content: "\e6d8"; }
 
 .icon-appreciate:before { content: "\e644"; }
 

@@ -1,1 +1,42 @@
 /* pages/mine/mine.wxss */
+@import "../../lib/style/font.wxss";
+.mine-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 400rpx;
+  margin-bottom: 50rpx;
+  background: #2FE1D6;
+}
+
+.mine-info .user-avatar {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+}
+
+.user-username {
+  margin-top: 10rpx;
+}
+
+.navigation:first {
+  margin-top: 50rpx;
+}
+
+.navigation {
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 56rpx;
+  padding-left: 40rpx;
+  border-bottom: 1px solid #cccccc;
+}
+
+.mine-posts {
+  border-top: 1px solid #cccccc;
+}
+
+.navigation .text {
+  padding-left: 30rpx;
+}

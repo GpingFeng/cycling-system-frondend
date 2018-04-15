@@ -1,0 +1,4 @@
+<!--pages/common/component/add-button/add.wxml-->
+<view class="add-button">
+  <text class="iconfont icon-add">1111</text>
+</view>

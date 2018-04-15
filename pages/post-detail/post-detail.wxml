@@ -1,0 +1,28 @@
+<!--pages/post-detail/post-detail.wxml-->
+<!-- 发表人 -->
+<view class="user">
+  <image src="{{ post.avatar }}" class="avatar"></image>
+  <view class="user-info-text">
+    <text class="username">{{ post.username }}</text>
+    <text class="posttime">{{ post.posttime }}</text>
+  </view>
+</view>
+<!-- 帖子内容 -->
+<view class="text-content" bindtap="goPostItem">{{ post.textContent }}</view>
+<view class="post-images-container" wx:if="{{ post.images.length != 0 }}">
+  <image wx:for="{{ post.images }}" wx:key="index" src="{{ item }}" mode="aspectFill" ></image>
+</view>
+<view class="like-comments">
+  <text class="like iconfont icon-appreciate_light">{{ post.likePeaple.length }}</text>
+  <text class="comment iconfont icon-comment_light">{{ post.comments.length }}</text>
+</view>
+<!-- 有哪些人觉得很赞 -->
+<view class="like-peaples">
+  <text wx:for="{{ post.likePeaple }}" wx:for-item="peaple" wx:key="index">{{ peaple}} <text   wx:if="{{ index < post.likePeaple.length-1 }}">，</text>
+  </text>觉得很赞
+</view>
+<!-- 评论区 -->
+<view class="comments">
+  评论区
+</view>
+

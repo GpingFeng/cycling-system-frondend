@@ -1,1 +1,48 @@
 /* pages/association/association.wxss */
+@import "../../lib/style/font.wxss";
+.association-list {
+  border-top: 2px solid #cccccc;
+}
+
+.association-item {
+  height: 200rpx;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #cccccc;
+}
+
+.association-image {  
+  width: 200rpx;
+  height: 200rpx;
+  position: absolute;
+  left: 0px;
+}
+
+.association-intro-text {
+  margin-left: 240rpx;
+}
+
+.association-intro-text .association-title{
+  display: block;
+}
+
+.association-intro-text .association-intro {
+  margin-top: 20rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-size: 30rpx;
+}
+
+.add-button {
+  position: fixed;
+  top: 80%;
+  right: 50rpx;
+}
+
+.add-button > text {
+  font-size: 100rpx;
+}

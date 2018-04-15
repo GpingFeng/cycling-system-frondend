@@ -1,0 +1,9 @@
+/* pages/common/component/add-button/add.wxss */
+@import '../../../../lib/style/font.wxss';
+.add-button {
+  width: 100%;
+  height: 100rpx;
+  font-size: 40rpx;
+  background: red;
+  color: #000;
+}

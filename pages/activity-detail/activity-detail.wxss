@@ -1,0 +1,12 @@
+/* pages/activity-detail/activity-detail.wxss */
+@import "../../lib/style/font.wxss";
+/* 点击加入  */
+.add-button {
+  position: fixed;
+  top: 80%;
+  right: 50rpx;
+}
+
+.add-button > text {
+  font-size: 100rpx;
+}
