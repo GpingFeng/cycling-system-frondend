@@ -4,10 +4,10 @@
   <view class="page-section page-section-spacing swiper">
     <swiper indicator-dots="{{indicatorDots}}"
       autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-      <block wx:for="{{background}}" wx:key="index">
+      <block wx:for="{{activities}}" wx:key="index">
         <swiper-item>
           <view class="swiper-item">
-            <image src="{{ item.src  }}" ></image>
+            <image src="{{ item.image  }}" ></image>
           </view>
         </swiper-item>
       </block>
@@ -27,17 +27,20 @@
       <image src="{{ post.avatar }}" class="avatar"></image>
       <view class="user-info-text">
         <text class="username">{{ post.username }}</text>
-        <text class="posttime">{{ post.posttime }}</text>
+        <text class="posttime">{{ post.post_time }}</text>
       </view>
     </view>
-    <view bindtap="goPostItem">
-      <view class="text-content">{{ post.textContent }}</view>
+    <view bindtap="goPostItem" id="{{ post.id }}">
+      <view class="text-content">{{ post.content_text  }}</view>
       <view class="post-images-container" wx:if="{{ post.images.length != 0 }}">
-        <image src="{{ post.images[0] }}" mode="aspectFill" ></image>
+        <image
+        src="{{ post.images[0].address }}" 
+        mode="aspectFill" ></image>
       </view>
     </view>
+    <!-- 点赞评论 -->
     <view class="like-comments">
-      <text class="like iconfont icon-appreciate_light">{{ post.likePeaple.length }}</text>
+      <text class="like iconfont icon-appreciate_light">{{ post.like_peaples }}</text>
       <text class="comment iconfont icon-comment_light">{{ post.comments.length }}</text>
     </view>
     <include src="../common/wxml/line.wxml" />

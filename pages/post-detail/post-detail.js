@@ -5,38 +5,151 @@ Page({
    * 页面的初始数据
    */
   data: {
-    post: {
-      avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523337445308&di=7417f0d3f80e31be606b03fcdb2cd21f&imgtype=0&src=http%3A%2F%2Fimg0.ph.126.net%2FVWS-eq4UdnSFTy0CkNGi2g%3D%3D%2F2040693581252325900.jpg',
-      posttime: '昨天4：00',
-      username: 'Gping',
-      textContent: '下午五点半广工正门来骑车吧下午五点半广工正门来骑车吧下午五点半广工正门来骑车吧下午五点半广工正门来骑车吧下午五点半广工正门来骑车吧下午五点半广工正门来骑车吧下午五点半广工正门来骑车吧下午五点半广工正门来骑车吧',
-      images: ['https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523337445308&di=7417f0d3f80e31be606b03fcdb2cd21f&imgtype=0&src=http%3A%2F%2Fimg0.ph.126.net%2FVWS-eq4UdnSFTy0CkNGi2g%3D%3D%2F2040693581252325900.jpg',
-        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523337445308&di=e5122717bedc0c7a7f0fc4fc5c946308&imgtype=0&src=http%3A%2F%2Fimg2.ph.126.net%2FIKvyfJe_vflCL4ni3bFrGQ%3D%3D%2F3159838088654158691.jpg',
-        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523337445308&di=a8a04172fb5b2d71715d98b3f630fcdc&imgtype=0&src=http%3A%2F%2Fnews.youth.cn%2Fzc%2F201607%2FW020160725354447402027.jpg',
-        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523337445308&di=064cbdee94025c548dbde8fe2361cb05&imgtype=0&src=http%3A%2F%2Fc2.biketo.com%2Fd%2Ffile%2Fracing%2FEvents%2F2016-07-25%2Fc89e74f28d4b3a135a791811f5f85089.jpg'],
-      comments: [{
-        avatar: 'http://cdnq.duitang.com/uploads/item/201504/04/20150404H3338_N8Wir.jpeg',
-        posttime: '昨天4：00',
-        username: '炎帝',
-        replyMsg: '好啊，不见不散'
-      },
-      {
-        avatar: 'http://cdnq.duitang.com/uploads/item/201504/04/20150404H3338_N8Wir.jpeg',
-        posttime: '昨天4：00',
-        username: '黄帝',
-        replyMsg: '好啊，到时见'
-      }],
-      likePeaple: ['冯光平', '黄帝']
-    }
+    post: {},
+    comments:  [],
+    likePeaple: 0,
+    focusIndex: 1,
+    hadLike: false,
+    isShowMask: false,
+    replyToUserId: '',
+    replyInput: ''
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this;
+    // 请求获得详情页面数据
+    wx.request({
+      url: 'http://localhost:3000/post/get_post',
+      data: {
+        id: 2
+      },
+      success: function(res) {
+        that.setData({
+          post: res.data.data,
+          likePeaple: res.data.data.like_peaples,
+          comments: res.data.data.comments
+        })
+        var likeUids = res.data.data.like_uids;
+        var likeUidsArr = likeUids.split(',');
+        // 根据返回的点赞用户判断是否已经点赞
+        if (likeUidsArr.indexOf('1') != -1) {
+          that.setData({
+            hadLike: true
+          })
+        } else {
+          that.setData({
+            hadLike: false
+          })
+        }
+      },
+      fail: function (err) {
+        console.warn(err);
+      }
+    })
   },
+  /**
+   * 用户输入回复框 
+   */
+  replyInput: function (e) {
+    this.setData({
+      replyInput: e.detail.value
+    })
+  },
+  /**
+   * 弹出回复框
+   */
+  replyUser: function (target) {
+    this.setData({
+      isShowMask: true,
+      replyToUserId: target.currentTarget.id
+    })
+  },
+  /**
+   * 回复
+   */
+  replyTap: function () {
+    var that = this;
+    
+    wx.request({
+      url: 'http://localhost:3000/comment/create_comment',
+      data: {
+        from_uid: 2,
+        content: that.data.replyInput,
+        topic_type: 0,
+        topic_id: that.data.post.id,
+        to_uid: that.data.replyToUserId
+      },
+      success: function (res){
+        that.data.comments.push(res.data.data);
+        that.setData({
+          comments: that.data.comments
+        })
+      }, 
+      fail: function (err) {
+        console.warn(err)
+      }
+    })
+    this.setData({
+      isShowMask: false
+    })
+  },
+  /**
+   * 评论
+   */
+  commentTap: function () {
+    this.setData({
+      isShowMask: true,
+      replyToUserId: ''
+    })
+  },
+  /**
+   * 关闭弹窗
+   */
+  closeMask: function () {
+    this.setData({
+      isShowMask: false
+    })
+  },
+  /**
+   * 点赞
+   */
+  likeTap: function (target) {
+    var id = target.currentTarget.id
+    var that = this;
+    wx.request({
+      url: 'http://localhost:3000/post/like',
+      data: {
+        id: id,
+        type: 0,
+        uid: 1
+      },
+      success: function (res) {
+        // console.log(res.data.data.like_peaples)
+        that.setData({
+          likePeaple: res.data.data.like_peaples
+        })
 
+        var likeUids = res.data.data.like_uids;
+        var likeUidsArr = likeUids.split(',');
+        // console.log(likeUidsArr)
+        if (likeUidsArr.indexOf('1') != -1) {
+          that.setData({
+            hadLike: true
+          })
+        } else {
+          that.setData({
+            hadLike: false
+          })
+        }
+        
+      },
+      fail: function (err) {
+        console.log(err)
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

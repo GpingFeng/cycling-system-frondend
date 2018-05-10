@@ -1,28 +1,79 @@
 <!--pages/post-detail/post-detail.wxml-->
 <!-- 发表人 -->
-<view class="user">
+<view class="con-container">
+  <view class="user">
   <image src="{{ post.avatar }}" class="avatar"></image>
   <view class="user-info-text">
     <text class="username">{{ post.username }}</text>
-    <text class="posttime">{{ post.posttime }}</text>
+    <text class="posttime">{{ post.post_time }}</text>
+  </view>
+  </view>
+  <!-- 帖子内容 -->
+  <view class="text-content" bindtap="goPostItem">{{ post.content_text }}</view>
+  <view class="post-images-container" wx:if="{{ post.images.length != 0 }}">
+    <image 
+    wx:for="{{ post.images }}" 
+    wx:key="index"
+    src="{{ item.address }}" mode="aspectFill" ></image>
+  </view>
+  <!-- 点赞和评论 -->
+  <view class="like-comments">
+    <text 
+      class="like iconfont icon-appreciate_light"
+      bindtap="likeTap"
+      id="{{ post.id }}"
+      wx:if="{{ !hadLike }}">{{ likePeaple }}</text>
+    <text 
+      wx:else
+      class="like iconfont icon-appreciate_fill_light"
+      bindtap="likeTap"
+      id="{{ post.id }}">{{ likePeaple }}</text>
+    <text 
+      class="comment iconfont icon-comment_light" 
+      bindtap="commentTap"
+      id="{{ post.id }}">{{ comments.length }}</text>
+  </view>
+  <!-- 有哪些人觉得很赞 -->
+  <!-- <view class="like-peaples">
+    <text wx:for="{{ likePeaple }}" wx:for-item="peaple" wx:key="index">{{ peaple}} <text   wx:if="{{ index < post.likePeaple.length-1 }}">，</text>
+    </text>觉得很赞
+  </view> -->
+  <!-- 评论区 -->
+  <view class="triangle"></view>
+  <view class="comments">
+    <view
+      class="comment"
+      wx:for="{{ comments }}" 
+      wx:for-item="comment"
+      wx:key="index">
+      <text class="comment-username">
+      {{ comment.username }}</text>
+      <text
+        class="comment-username" 
+        wx:if="{{comment.to_username}}"> @ {{ comment.to_username }}</text>：
+      <text 
+        id="{{ comment.from_uid }}"
+        bindtap="replyUser">{{comment.content}}</text>
+    </view>
+    <view
+      class="reply-section"
+      id="reply-section"
+      wx:if="{{ isShowMask }}">
+      <textarea
+        id="comment-textarea" 
+        class="comment-textarea"
+        placeholder="回复{{comment.fromUsername}}"
+        bindinput="replyInput"
+        focus></textarea>
+      <button 
+        class="close" 
+        size='mini'
+        bindtap="closeMask">关闭</button>
+      <button 
+        class="reply"
+        bindtap="replyTap"
+        size='mini' 
+        type='primary'>回复</button>
+    </view>
   </view>
 </view>
-<!-- 帖子内容 -->
-<view class="text-content" bindtap="goPostItem">{{ post.textContent }}</view>
-<view class="post-images-container" wx:if="{{ post.images.length != 0 }}">
-  <image wx:for="{{ post.images }}" wx:key="index" src="{{ item }}" mode="aspectFill" ></image>
-</view>
-<view class="like-comments">
-  <text class="like iconfont icon-appreciate_light">{{ post.likePeaple.length }}</text>
-  <text class="comment iconfont icon-comment_light">{{ post.comments.length }}</text>
-</view>
-<!-- 有哪些人觉得很赞 -->
-<view class="like-peaples">
-  <text wx:for="{{ post.likePeaple }}" wx:for-item="peaple" wx:key="index">{{ peaple}} <text   wx:if="{{ index < post.likePeaple.length-1 }}">，</text>
-  </text>觉得很赞
-</view>
-<!-- 评论区 -->
-<view class="comments">
-  评论区
-</view>
-

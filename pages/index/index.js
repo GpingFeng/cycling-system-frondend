@@ -5,16 +5,7 @@ const app = getApp()
 Page({
   data: {
     // 控制轮播组件的配置
-    background: [{
-      name:'跨年活动',
-      src: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=334127971,2490462282&fm=200&gp=0.jpg'
-    }, {
-      name: '跨年活动',
-      src: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=360205134,2931201299&fm=27&gp=0.jpg'
-      }, {
-        name: '跨年活动',
-        src:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=334127971,2490462282&fm=200&gp=0.jpg'
-      }],
+    activities: [],
     // 指示点
     indicatorDots: true,
     // 控制自动播放
@@ -24,49 +15,7 @@ Page({
     // 动画效果时间
     duration: 500,
     // 帖子列表
-    postList: [{
-      avatar: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2312869786,122661194&fm=27&gp=0.jpg',
-      posttime: '昨天4：00',
-      username: 'Gping',
-      textContent: '下午五点半广工正门来骑车吧下午五点半广工正门来骑车吧下午五点半广工正门来骑车吧下午五点半广工正门来骑车吧下午五点半广工正门来骑车吧下午五点半广工正门来骑车吧下午五点半广工正门来骑车吧下午五点半广工正门来骑车吧',
-      images: ['https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523337445308&di=7417f0d3f80e31be606b03fcdb2cd21f&imgtype=0&src=http%3A%2F%2Fimg0.ph.126.net%2FVWS-eq4UdnSFTy0CkNGi2g%3D%3D%2F2040693581252325900.jpg',
-      'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523337445308&di=e5122717bedc0c7a7f0fc4fc5c946308&imgtype=0&src=http%3A%2F%2Fimg2.ph.126.net%2FIKvyfJe_vflCL4ni3bFrGQ%3D%3D%2F3159838088654158691.jpg',
-      'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523337445308&di=a8a04172fb5b2d71715d98b3f630fcdc&imgtype=0&src=http%3A%2F%2Fnews.youth.cn%2Fzc%2F201607%2FW020160725354447402027.jpg',
-      'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523337445308&di=064cbdee94025c548dbde8fe2361cb05&imgtype=0&src=http%3A%2F%2Fc2.biketo.com%2Fd%2Ffile%2Fracing%2FEvents%2F2016-07-25%2Fc89e74f28d4b3a135a791811f5f85089.jpg'],
-      comments: [{
-        avatar: 'http://cdnq.duitang.com/uploads/item/201504/04/20150404H3338_N8Wir.jpeg',
-        posttime: '昨天4：00',
-        username: '炎帝',
-        replyMsg: '好啊，不见不散'
-      },
-      {
-        avatar: 'http://cdnq.duitang.com/uploads/item/201504/04/20150404H3338_N8Wir.jpeg',
-        posttime: '昨天4：00',
-        username: '黄帝',
-        replyMsg: '好啊，到时见'
-      }],
-      likePeaple: ['冯光平', '黄帝']
-    },
-      {
-        avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523337445308&di=a8a04172fb5b2d71715d98b3f630fcdc&imgtype=0&src=http%3A%2F%2Fnews.youth.cn%2Fzc%2F201607%2FW020160725354447402027.jpg',
-        posttime: '今天9：00',
-        username: '黄帝',
-        textContent: '来啊快活啊来啊快活啊来啊快活啊来啊快活啊来啊快活啊来啊快活啊来啊快活啊来啊快活啊',
-        images: [],
-        comments: [{
-          avatar: 'http://cdnq.duitang.com/uploads/item/201504/04/20150404H3338_N8Wir.jpeg',
-          posttime: '昨天4：00',
-          username: '炎帝',
-          replyMsg: '好啊，不见不散'
-        },
-        {
-          avatar: 'http://cdnq.duitang.com/uploads/item/201504/04/20150404H3338_N8Wir.jpeg',
-          posttime: '昨天4：00',
-          username: '黄帝',
-          replyMsg: '好啊，到时见'
-        }],
-        likePeaple: ['冯光平', '黄帝','宝宝']
-      }],
+    postList: [],
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
@@ -79,9 +28,12 @@ Page({
     })
   },
   // 跳转到具体的帖子页面
-  goPostItem: function () {
+  goPostItem: function (target) {
+    var postId = target.currentTarget.id;
+    console.log(postId)
+    // 使用URL传递参数
     wx.navigateTo({
-      url: '../post-detail/post-detail',
+      url: '../post-detail/post-detail?id=' + postId,
     })
   },
   // 点击创建帖子
@@ -91,6 +43,23 @@ Page({
     })
   },
   onLoad: function () {
+    console.log('Gp');
+    var that = this;
+    wx.request({
+      url: 'http://localhost:3000/post/get_all_posts',
+      data: {},
+      success: function (res) {
+        that.setData({
+          activities: res.data.data.activities,
+          postList: res.data.data.posts
+        })
+      },
+      fail: function (res) {
+        console.log(res);
+      }
+    })
+
+
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,

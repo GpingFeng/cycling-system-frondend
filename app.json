@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/post-detail/post-detail",
     "pages/join-activity/join-activity",
     "pages/join-association/join-association",
     "pages/association-detail/association-detail",
@@ -8,7 +9,6 @@
     "pages/association/association",
     "pages/create-post/create-post",
     "pages/activity-detail/activity-detail",
-    "pages/post-detail/post-detail",
     "pages/mine/mine",
     "pages/activity/activity",
     "pages/logs/logs"
