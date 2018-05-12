@@ -1,5 +1,4 @@
-// pages/activity/activity.js
-
+// pages/mine-activity/mine-activity.js
 Page({
   /**
    * 页面的初始数据
@@ -20,9 +19,13 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    var uid = options.uid;
+    console.log(uid)
     wx.request({
-      url: 'http://localhost:3000/activity/get_all_activities',
-      data: {},
+      url: 'http://localhost:3000/useractivity/get_activity_by_user',
+      data: {
+        id: uid
+      },
       success: (res) => {
         console.log(res.data)
         that.setData({

@@ -2,10 +2,13 @@
 <!-- 车协列表 -->
 <view class="association-list">
   <block wx:for="{{ associationList }}" wx:key="index">
-    <view bindtap="goAssociationDetail" class="association-item">
-      <image src="{{ item.image }}" class="association-image"></image>
+    <view 
+    bindtap="goAssociationDetail" 
+    class="association-item"
+    id="{{ item.id }}">
+      <image src="{{ item.images[0].address }}" class="association-image"></image>
       <view class="association-intro-text">
-        <text class="association-title">{{ item.title }}</text>
+        <text class="association-title">{{ item.nickname }}</text>
         <text class="association-intro">{{ item.intro }}</text>
       </view>
     </view>

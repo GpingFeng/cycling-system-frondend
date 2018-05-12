@@ -103,6 +103,7 @@
 
 .post-images-container image {
   max-width: 50%;
+  font-size: 0;
 }
 
 .like-comments {

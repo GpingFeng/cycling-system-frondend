@@ -1,5 +1,4 @@
-<!--pages/activity/activity.wxml-->
-
+<!--pages/mine-activity/mine-activity.wxml-->
 <!-- 帖子列表 -->
 <view class="activity-list">
   <block wx:for="{{ activityList }}" wx:key="index">
@@ -16,3 +15,4 @@
     <include src="../common/wxml/line.wxml" />
   </block>
 </view>
+

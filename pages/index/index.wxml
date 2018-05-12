@@ -6,7 +6,10 @@
       autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
       <block wx:for="{{activities}}" wx:key="index">
         <swiper-item>
-          <view class="swiper-item">
+          <view
+            id="{{ item.id }}"
+            class="swiper-item"
+            bindtap="goActivityDetail">
             <image src="{{ item.image  }}" ></image>
           </view>
         </swiper-item>
@@ -39,10 +42,10 @@
       </view>
     </view>
     <!-- 点赞评论 -->
-    <view class="like-comments">
+    <!-- <view class="like-comments">
       <text class="like iconfont icon-appreciate_light">{{ post.like_peaples }}</text>
       <text class="comment iconfont icon-comment_light">{{ post.comments.length }}</text>
-    </view>
+    </view> -->
     <include src="../common/wxml/line.wxml" />
   </view>
   <!-- 点击添加帖子 -->

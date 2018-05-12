@@ -1,0 +1,38 @@
+/* pages/mine-activity/mine-activity.wxss */
+
+.activity-list {
+  border-top: 2px solid #cccccc;
+}
+
+.activity-item {
+  height: 200rpx;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #cccccc;
+}
+
+.activity-image {  
+  width: 200rpx;
+  height: 200rpx;
+  position: absolute;
+  left: 0px;
+}
+
+.activity-intro-text {
+  margin-left: 240rpx;
+}
+
+.activity-intro-text .activity-title{
+  display: block;
+}
+
+.activity-intro-text .activity-intro {
+  margin-top: 20rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-size: 30rpx;
+}

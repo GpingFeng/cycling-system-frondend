@@ -3,14 +3,19 @@
   <view class="text">
     <textarea 
       placeholder="please input" 
-      focus="true"></textarea>
+      focus="true"
+      bindinput="inputText"></textarea>
   </view>
   <view class="choose-title">请选择图片</view>
   <view class="choose-images">
     <view class="uploader-files">
       <block wx:for="{{imageList}}" wx:for-item="image" wx:key="index">
         <view class="uploader-file">
-          <image class="uploader-img" src="{{image}}" data-src="{{image}}" bindtap="previewImage"></image>
+          <image 
+            class="uploader-img" 
+            src="{{image}}" 
+            data-src="{{image}}" 
+            bindtap="previewImage"></image>
         </view>
       </block>
       <view class="uploader-input-box">
@@ -20,7 +25,7 @@
     </view>
   </view>
   <view class="submit-btn">
-    <button type='primary'>发表</button>
+    <button type='primary' bindtap='publishPost'>发表</button>
   </view>
 </view>
 

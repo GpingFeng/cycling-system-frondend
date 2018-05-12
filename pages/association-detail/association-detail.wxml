@@ -1,8 +1,38 @@
 <!--pages/association-detail/association-detail.wxml-->
 <view>
-  与帖子详情类似
-  <!-- 点击加入车协 -->
-  <view class="add-button" bindtap="createAssociationBtn">
+  <!-- 发表人 -->
+  <view class="con-container">
+    <view class="user">
+    <image src="{{ association.avatar }}" class="avatar"></image>
+    <view class="user-info-text">
+      <text class="username">{{ association.username }}</text>
+      <text class="posttime">{{ association.post_time }}</text>
+    </view>
+    </view>
+    <!-- 帖子内容 -->
+    <view class='text-title'>
+      {{ association.nickname }}
+    </view>
+    <view class="text-content">{{ association.intro }}</view>
+    <view class="post-images-container" wx:if="{{ association.images.length != 0 }}">
+      <image 
+        wx:for="{{ association.images }}" 
+        wx:key="index"
+        src="{{ item.address }}" 
+        mode="aspectFill"
+        bindtap="previewImage" ></image>
+    </view>
+  </view>
+  <view class="association-users">
+    <view class="title">已加入车协成员</view>
+    <view class="all-users">
+      <image 
+        wx:for="{{ association.users }}" 
+        wx:key="index"
+        src="{{ item.avatar }}"></image>
+    </view>
+  </view>
+  <view class="add-button" bindtap="joinassociation">
     <text class="iconfont icon-round_add"></text>
   </view>
 </view>

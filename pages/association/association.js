@@ -1,4 +1,6 @@
 // pages/association/association.js
+const app = getApp();
+
 Page({
 
   /**
@@ -6,42 +8,9 @@ Page({
    */
   data: {
     // 车协列表
-    associationList: [{
-      title: '广工车协',
-      intro: '广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？',
-      contentText: '我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦',
-      image: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2631750191,2248479165&fm=27&gp=0.jpg'
-    },
-    {
-      title: '广工车协',
-      intro: '广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？',
-      contentText: '我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦',
-      image: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523784862558&di=bba79678439e02367275a51e1e436094&imgtype=0&src=http%3A%2F%2Fimg0.ph.126.net%2FQ_xcvdEnqkYrN3YsgNB14g%3D%3D%2F6597201708052102870.jpg'
-    },
-    {
-      title: '广工车协',
-      intro: '广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？',
-      contentText: '我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦',
-      image: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523784929007&di=4de9c049477ae8c74521ad57cea702a8&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01437d57d5030a0000018c1b1dcbd2.jpg%401280w_1l_2o_100sh.png'
-    },
-    {
-      title: '广工车协',
-      intro: '广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？',
-      contentText: '我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦',
-      image: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=581475525,2963838037&fm=27&gp=0.jpg'
-    },
-    {
-      title: '广工车协',
-      intro: '广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？',
-      contentText: '我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦',
-      image: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2631750191,2248479165&fm=27&gp=0.jpg'
-    },
-    {
-      title: '广工车协',
-      intro: '广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？广工车协了解一下？',
-      contentText: '我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦我们是广工车协哦',
-      image: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1650950783,4007799540&fm=27&gp=0.jpg'
-    }]
+    associationList: [],
+    // 用户信息
+    userInfo: {}
   },
   // 跳转到创建车协页面
   goCreateItem: function () {
@@ -49,18 +18,59 @@ Page({
       url: '../create-association/create-association',
     })
   },
-  goAssociationDetail: function () {
+  /**
+   * 点击跳转到车协详情页
+   */
+  goAssociationDetail: function (e) {
+    var id = e.currentTarget.id
     wx.navigateTo({
-      url: '../association-detail/association-detail',
+      url: '../association-detail/association-detail?id=' + id,
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    // 获得全局的用户信息
+    this.setData({
+      userInfo: app.globalData.userInfo
+    })
+    var type = options.type,
+        that = this,
+        uid = this.data.userInfo.id;
+    // 如果从‘我的’跳转过来，则只需请求用户自身的车协
+    if (type == 'mine') {
+      wx.request({
+        url: 'http://localhost:3000/user/get_association_by_user',
+        data: {
+          userId: uid
+        },
+        success: (res) => {
+          console.log(res);
+          that.setData({
+            associationList: res.data.data
+          })
+        },
+        fail: (err) => {
+          console.warn(err);
+        }
+      })
+    } else {
+      wx.request({
+        url: 'http://localhost:3000/association/get_all_association',
+        data: {},
+        success: (res) => {
+          console.log(res);
+          that.setData({
+            associationList: res.data.data
+          })
+        },
+        fail: (err) => {
+          console.warn(err);
+        }
+      })
+    } 
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

@@ -17,14 +17,19 @@ Page({
     // 帖子列表
     postList: [],
     motto: 'Hello World',
+    // 用户相关信息
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
-  //事件处理函数
-  bindViewTap: function() {
+  /**
+   * 点击轮播图
+   */
+  goActivityDetail: function (e) {
+    console.log(e.currentTarget.id);
+    var id = e.currentTarget.id
     wx.navigateTo({
-      url: '../logs/logs'
+      url: '../activity-detail/activity-detail?id=' + id,
     })
   },
   // 跳转到具体的帖子页面
@@ -43,12 +48,13 @@ Page({
     })
   },
   onLoad: function () {
-    console.log('Gp');
     var that = this;
+    // 请求获得所有的帖子
     wx.request({
       url: 'http://localhost:3000/post/get_all_posts',
       data: {},
       success: function (res) {
+        console.log(res.data.data.activities)
         that.setData({
           activities: res.data.data.activities,
           postList: res.data.data.posts
@@ -59,7 +65,7 @@ Page({
       }
     })
 
-
+    // 取得全局数据比较完善的写法
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -73,6 +79,7 @@ Page({
           userInfo: res.userInfo,
           hasUserInfo: true
         })
+        console.log(app.globalData.userInfo)
       }
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
@@ -86,13 +93,5 @@ Page({
         }
       })
     }
-  },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
   }
 })

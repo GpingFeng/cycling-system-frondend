@@ -1,12 +1,17 @@
 // pages/create-post/create-post.js
-Page({
+var app = getApp();
 
+Page({
   /**
    * 页面的初始数据
    */
   data: {
     // 选择的图片
-    imageList: []
+    imageList: [],
+    // 输入的文本
+    inputText: '',
+    // 用户信息
+    userInfo: {}
   },
   // 点击选择图片
   chooseImage: function () {
@@ -15,6 +20,7 @@ Page({
     wx.chooseImage({
       sourceType: ['album', 'camera'],
       success: function(res) {
+        console.log(res)
         that.data.imageList.push(res.tempFilePaths[0]);
         var temp = that.data.imageList;
         that.setData({
@@ -33,10 +39,66 @@ Page({
     })
   },
   /**
+   * 用户输入文本
+   */
+  inputText: function (e) {
+    this.setData({
+      inputText: e.detail.value
+    })
+  },
+  /**
+   * 发表帖子接口
+   */
+  publishPost: function () {
+    var that = this;
+    console.log(this.data.userInfo.id)
+    var uid = this.data.userInfo.id;
+    wx.request({
+      url: 'http://localhost:3000/post/create_post',
+      data: {
+        uid: uid,
+        content_text: that.data.inputText
+      },
+      method: 'PUT',
+      success: function (res) {
+        console.log(res.data.data.id);
+        var postId = res.data.data.id;
+        that.data.imageList.forEach((image) => {
+          wx.uploadFile({
+            url: 'http://localhost:3000/images/create_image',
+            filePath: image,
+            name: 'image111',
+            header: {
+              'content-type': 'multipart/form-data'
+            }, // 设置请求的 header
+            method: 'POST',
+            formData: {
+              target_id: postId,
+              target_type: 0
+            },
+            success: function (res) {
+              console.log(res);
+            },
+            fail: function (err) {
+              console.warn(err);
+            }
+          })
+        })
+      },
+      fail: function (err) {
+        console.warn(err);
+      }
+    })
+  },
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    console.log(app.globalData.userInfo)
+    // 获得全局的用户信息
+    this.setData({
+      userInfo: app.globalData.userInfo
+    })
   },
 
   /**

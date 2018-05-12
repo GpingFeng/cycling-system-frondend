@@ -1,6 +1,189 @@
 /* pages/association-detail/association-detail.wxss */
 @import "../../lib/style/font.wxss";
 
+@import "../../lib/style/font.wxss";
+
+.post-title {
+  width: 100%;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+}
+
+.post-title > text {
+  position: relative;
+  left: 30rpx;
+}
+
+.user {
+  position: relative;
+  left: 30rpx;
+  height: 130rpx;
+  display: flex;
+  align-items: center;
+}
+
+.text-content {
+  padding: 0 30rpx;
+}
+
+.post-list, .user {
+  width: 100%;
+}
+
+.avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+}
+
+.user-info-text {
+  display: inline-block;
+  padding-left: 16rpx;
+}
+
+.user-info-text .username, .user-info-text .posttime {
+  display: block;
+}
+
+.user-info-text .username {
+  font-weight: bold;
+}
+
+.user-info-text .posttime {
+  font-size: 30rpx;
+  font-weight: 500;
+}
+
+.post-images-container {
+  border-bottom: 1px solid #cccccc;
+  display: flex;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+  justify-content: left;
+  margin-top: 30rpx;
+  margin-bottom: 10rpx;
+  padding-left: 30rpx;
+}
+
+.post-images-container image {
+  width: 80%;
+}
+
+.like-comments {
+  height: 50rpx;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.like-comments text {
+  padding-right: 40rpx;
+  font-size: 34rpx;
+}
+
+.like-comments, .like-peaples {
+  border-bottom: 1px solid #cccccc;
+}
+
+.like-peaples {
+  font-size: 30rpx;
+  color: #000000;
+}
+
+.like-peaples > text {
+  color: #343223;
+}
+
+.like-peaples {
+  padding: 20rpx;
+  display: flex;
+  align-items: center;
+}
+
+.comments {
+  width: 95%;
+  padding-bottom: 100rpx;
+  background-color: #cccccc;
+  border: 5rpx solid #cccccc;
+  border-radius: 20rpx;
+  margin: 0 auto;
+}
+
+.triangle {
+  content: '';
+  width: 0rpx;
+  height: 0rpx;
+  border: 50rpx solid #cccccc;
+  margin-top: -50rpx;
+  margin-left: 50rpx;
+  border-color: transparent transparent #cccccc;
+}
+
+.comment {
+  margin-left: 20rpx;
+  padding-top: 10rpx;
+}
+
+.comment .comment-username {
+  color: blue;
+}
+
+#reply-section {
+  /* display: none; */
+  background: #cccccc;
+  position: fixed;
+  width: 80%;
+  top: 300rpx;
+  left: 10%;
+  border-radius: 2%;
+}
+
+#reply-section textarea {
+  width: 90%;
+  padding: 20rpx;
+  border-bottom: 1px solid #fff;
+}
+
+#reply-section .close {
+  position: relative;
+  left: 2%;
+}
+
+#reply-section .reply {
+  margin-top: 10rpx;
+  position: relative;
+  left: 50%;
+}
+
+.text-title {
+  font-weight: bolder;
+  margin-left: 50rpx;
+}
+
+/* 已加入车协人头像 */
+.association-users {
+  height: 60rpx;
+  line-height: 60rpx;
+  border-bottom: 1px #cccccc solid;
+  margin-bottom: 100rpx;
+}
+
+.association-users .title {
+  width: 100%;
+  font-size: 40rpx;
+  margin-left: 20rpx;
+  font-weight: 300;
+}
+
+.association-users image {
+  display: inline-block;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  margin: 30rpx;
+}
+
 /* 点击加入  */
 .add-button {
   position: fixed;

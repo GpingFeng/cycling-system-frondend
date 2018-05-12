@@ -1,4 +1,5 @@
 // pages/mine/mine.js
+const app = getApp();
 
 Page({
   /**
@@ -12,9 +13,42 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getUserInfo();
+    this.setData({
+      userInfo: app.globalData.userInfo
+    })
   },
-
+  /**
+   * 跳转到我的车协
+   */
+  toMyAssociation: function () {
+    var from_uid = this.data.userInfo.id;
+    wx.request({
+      url: 'http://localhost:3000/users/get_association_by_user',
+      data: {
+        userId: from_uid
+      },
+      success: function (res) {
+        var id = res.data.data
+        console.log(id)
+        wx.navigateTo({
+          url: '../association-detail/association-detail?id=' + id
+        })
+      },
+      fail: function (err) {
+        console.warn(err)
+      }
+    })
+    
+  },
+  /**
+   * 跳转到我的活动列表页面
+   */
+  toMyActivities: function () {
+    var from_uid = this.data.userInfo.id;
+    wx.navigateTo({
+      url: '../mine-activity/mine-activity?uid=' + from_uid,
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -28,31 +62,6 @@ Page({
   onShow: function () {
     
   },
-  getUserInfo: function () {
-    var that = this;
-    wx.login({
-      success: function () {
-        wx.getUserInfo({
-          withCredentials: true,
-          lang: '',
-          success: function (res) {
-            that.setData({
-              userInfo: res.userInfo
-            })
-            
-            console.log(that.userInfo)
-          },
-          fail: function (res) {
-            console.log(res)
-          },
-          complete: function (res) {
-            console.log(res)
-          }
-        })
-      }
-    })
-  },
-
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -63,11 +72,9 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-
   onUnload: function () {
 
   },
-
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */

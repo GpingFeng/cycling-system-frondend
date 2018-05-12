@@ -1,29 +1,43 @@
 // pages/post-detail/post-detail.js
-Page({
+const app = getApp();
 
+Page({
   /**
    * 页面的初始数据
    */
   data: {
+    // 帖子
     post: {},
+    // 评论
     comments:  [],
+    // 喜欢人数
     likePeaple: 0,
-    focusIndex: 1,
+    // 是否点赞
     hadLike: false,
+    // 是否显示遮罩层
     isShowMask: false,
+    // 被回复人的Id
     replyToUserId: '',
-    replyInput: ''
+    // 回复框输入的信息
+    replyInput: '',
+    // 用户信息
+    userInfo: {}
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // 获得全局的用户信息
+    this.setData({
+      userInfo: app.globalData.userInfo
+    })
     var that = this;
+    var from_uid = this.data.userInfo.id;
     // 请求获得详情页面数据
     wx.request({
       url: 'http://localhost:3000/post/get_post',
       data: {
-        id: 2
+        id: options.id
       },
       success: function(res) {
         that.setData({
@@ -34,7 +48,7 @@ Page({
         var likeUids = res.data.data.like_uids;
         var likeUidsArr = likeUids.split(',');
         // 根据返回的点赞用户判断是否已经点赞
-        if (likeUidsArr.indexOf('1') != -1) {
+        if (likeUidsArr.indexOf(from_uid) != -1) {
           that.setData({
             hadLike: true
           })
@@ -67,20 +81,38 @@ Page({
     })
   },
   /**
+   * 预览图片
+   */
+  previewImage: function (e) {
+    var current = e.target.dataset.src;
+    var tempImages = [];
+    console.log(this.data.post.images)
+    this.data.post.images.forEach((img) => {
+      tempImages.push(img.address)
+    })
+    
+    wx.previewImage({
+      current: current,
+      urls: tempImages
+    })
+  },
+  /**
    * 回复
    */
   replyTap: function () {
     var that = this;
-    
+    var from_uid = this.data.userInfo.id;
+    console.log(from_uid)
     wx.request({
       url: 'http://localhost:3000/comment/create_comment',
       data: {
-        from_uid: 2,
+        from_uid: from_uid,
         content: that.data.replyInput,
         topic_type: 0,
         topic_id: that.data.post.id,
         to_uid: that.data.replyToUserId
       },
+      method: 'POST',
       success: function (res){
         that.data.comments.push(res.data.data);
         that.setData({
@@ -116,6 +148,7 @@ Page({
    * 点赞
    */
   likeTap: function (target) {
+    var from_uid = this.data.userInfo.id;
     var id = target.currentTarget.id
     var that = this;
     wx.request({
@@ -123,8 +156,9 @@ Page({
       data: {
         id: id,
         type: 0,
-        uid: 1
+        uid: from_uid
       },
+      method: 'POST',
       success: function (res) {
         // console.log(res.data.data.like_peaples)
         that.setData({
@@ -134,7 +168,7 @@ Page({
         var likeUids = res.data.data.like_uids;
         var likeUidsArr = likeUids.split(',');
         // console.log(likeUidsArr)
-        if (likeUidsArr.indexOf('1') != -1) {
+        if (likeUidsArr.indexOf(from_uid) != -1) {
           that.setData({
             hadLike: true
           })
@@ -182,7 +216,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+
   },
 
   /**

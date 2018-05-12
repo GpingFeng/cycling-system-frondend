@@ -5,16 +5,25 @@
     <text class="user-username">{{ userInfo.nickName }}</text>
   </view>
 
-  <view class="navigation mine-posts">
+  <!-- <view class="navigation mine-posts">
     <text class="iconfont icon-edit"><text class="text">我的帖子</text></text>
+  </view> -->
+  <view 
+    class="navigation mine-association"
+    bindtap="toMyAssociation">
+    <text 
+      class="iconfont icon-group">
+      <text class="text">我的车协</text>
+    </text>
   </view>
-  <view class="navigation mine-association">
-    <text class="iconfont icon-group"><text class="text">我的车协</text></text>
+  <view 
+    class="navigation mine-activity"
+    bindtap="toMyActivities">
+    <text class="iconfont icon-community_light">
+      <text class="text">我的活动</text>
+    </text>
   </view>
-  <view class="navigation mine-activity">
-    <text class="iconfont icon-community_light"><text class="text">我的活动</text></text>
-  </view>
-  <view class="navigation mine-reply">
+  <!-- <view class="navigation mine-reply">
     <text class="iconfont icon-message_light"><text class="text">我的回复</text></text>
-  </view>
+  </view> -->
 </view>
