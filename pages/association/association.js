@@ -2,7 +2,6 @@
 const app = getApp();
 
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -35,41 +34,21 @@ Page({
     this.setData({
       userInfo: app.globalData.userInfo
     })
-    var type = options.type,
-        that = this,
+    var that = this,
         uid = this.data.userInfo.id;
-    // 如果从‘我的’跳转过来，则只需请求用户自身的车协
-    if (type == 'mine') {
-      wx.request({
-        url: 'http://localhost:3000/user/get_association_by_user',
-        data: {
-          userId: uid
-        },
-        success: (res) => {
-          console.log(res);
-          that.setData({
-            associationList: res.data.data
-          })
-        },
-        fail: (err) => {
-          console.warn(err);
-        }
-      })
-    } else {
-      wx.request({
-        url: 'http://localhost:3000/association/get_all_association',
-        data: {},
-        success: (res) => {
-          console.log(res);
-          that.setData({
-            associationList: res.data.data
-          })
-        },
-        fail: (err) => {
-          console.warn(err);
-        }
-      })
-    } 
+    wx.request({
+      url: 'http://localhost:3000/association/get_all_association',
+      data: {},
+      success: (res) => {
+        that.setData({
+          associationList: res.data.data
+        })
+      },
+      fail: (err) => {
+        console.warn(err);
+      }
+    })
+
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

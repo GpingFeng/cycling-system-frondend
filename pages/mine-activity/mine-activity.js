@@ -7,8 +7,10 @@ Page({
     // 活动列表
     activityList: []
   },
+  /**
+   * 跳转到活动详情页
+   */
   goActivityDetail: function (e) {
-    console.log(e.currentTarget.id);
     var id = e.currentTarget.id
     wx.navigateTo({
       url: '../activity-detail/activity-detail?id=' + id,
@@ -20,14 +22,12 @@ Page({
   onLoad: function (options) {
     var that = this;
     var uid = options.uid;
-    console.log(uid)
     wx.request({
       url: 'http://localhost:3000/useractivity/get_activity_by_user',
       data: {
         id: uid
       },
       success: (res) => {
-        console.log(res.data)
         that.setData({
           activityList: res.data.data
         })

@@ -86,7 +86,6 @@ Page({
   previewImage: function (e) {
     var current = e.target.dataset.src;
     var tempImages = [];
-    console.log(this.data.post.images)
     this.data.post.images.forEach((img) => {
       tempImages.push(img.address)
     })
@@ -102,7 +101,6 @@ Page({
   replyTap: function () {
     var that = this;
     var from_uid = this.data.userInfo.id;
-    console.log(from_uid)
     wx.request({
       url: 'http://localhost:3000/comment/create_comment',
       data: {

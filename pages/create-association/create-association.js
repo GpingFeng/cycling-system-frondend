@@ -6,9 +6,13 @@ Page({
    * 页面的初始数据
    */
   data: {
+    // 图片列表
     imageList: [],
+    // 简称输入
     nicknameInput: '',
+    // 全称输入
     fullnameInput: '',
+    // 简介输入
     introInput: ''
   },
   /**
@@ -34,8 +38,8 @@ Page({
    */
   submit: function () {
     var that = this;
-    console.log(this.data.userInfo.id)
     var uid = this.data.userInfo.id;
+    // 创建车协
     wx.request({
       url: 'http://localhost:3000/association/create_association',
       data: {
@@ -46,14 +50,13 @@ Page({
       },
       method: 'PUT',
       success: function (res) {
-        console.log(res);
-        console.log(res.data.data.id);
         var postId = res.data.data.id;
+        // 上传图片
         that.data.imageList.forEach((image) => {
           wx.uploadFile({
             url: 'http://localhost:3000/images/create_image',
             filePath: image,
-            name: 'image111',
+            name: 'image11',
             header: {
               'content-type': 'multipart/form-data'
             }, // 设置请求的 header
@@ -76,9 +79,10 @@ Page({
       }
     })
   },
-  // 点击选择图片
+  /**
+   * 点击选择图片
+   */
   chooseImage: function () {
-    console.log('choose')
     var that = this;
     wx.chooseImage({
       sourceType: ['album', 'camera'],
@@ -104,7 +108,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(app.globalData.userInfo)
     // 获得全局的用户信息
     this.setData({
       userInfo: app.globalData.userInfo

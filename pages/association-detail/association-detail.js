@@ -15,7 +15,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.id)
     // 获得全局的用户信息
     this.setData({
       userInfo: app.globalData.userInfo
@@ -26,7 +25,6 @@ Page({
       url: 'http://localhost:3000/association/get_association_by_id',
       data: {
         id: options.id
-        // id: 2
       },
       success: function(res) {
         that.setData({
@@ -44,10 +42,11 @@ Page({
       title: '提示',
       content: '是否加入该车协',
       success: function (res) {
+        // 确认加入
         if (res.confirm) {
-          // 确认加入
           var associationId = that.data.association.id,
               userId = that.data.userInfo.id;
+          // 用户加入车协接口
           wx.request({
             url: 'http://localhost:3000/users/join_association',
             data: {
@@ -56,7 +55,6 @@ Page({
             },
             method: 'PUT',
             success: (res) => {
-              console.log(res);
               if (res.data.data) {
                 wx.showToast({
                   title: res.data.message,
@@ -73,8 +71,6 @@ Page({
               console.warn(err)
             }
           })
-        } else {
-          // 取消加入
         }
       }
     })
@@ -85,7 +81,6 @@ Page({
   previewImage: function (e) {
     var current = e.target.dataset.src;
     var tempImages = [];
-    console.log(this.data.association.images)
     this.data.association.images.forEach((img) => {
       tempImages.push(img.address)
     })

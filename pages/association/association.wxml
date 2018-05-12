@@ -3,9 +3,9 @@
 <view class="association-list">
   <block wx:for="{{ associationList }}" wx:key="index">
     <view 
-    bindtap="goAssociationDetail" 
-    class="association-item"
-    id="{{ item.id }}">
+      bindtap="goAssociationDetail" 
+      class="association-item"
+      id="{{ item.id }}">
       <image src="{{ item.images[0].address }}" class="association-image"></image>
       <view class="association-intro-text">
         <text class="association-title">{{ item.nickname }}</text>

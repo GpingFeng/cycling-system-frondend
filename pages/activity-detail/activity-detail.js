@@ -34,7 +34,6 @@ Page({
     var that = this;
     var from_uid = this.data.userInfo.id;
     
-    console.log(options.id)
     // 请求获得详情页面数据
     wx.request({
       url: 'http://localhost:3000/activity/get_activity_by_id',
@@ -42,7 +41,6 @@ Page({
         id: options.id
       },
       success: function (res) {
-        console.log(res.data.data)
         that.setData({
           activity: res.data.data,
           likePeaple: res.data.data.like_peaples,
@@ -79,6 +77,7 @@ Page({
           // 确认加入
           var activityId = that.data.activity.id,
               userId = that.data.userInfo.id;
+          // 用户加入活动接口
           wx.request({
             url: 'http://localhost:3000/useractivity/create_user_activity',
             data: {
@@ -86,7 +85,6 @@ Page({
               userId: userId
             },
             success: (res) => {
-              console.log(res);
               wx.showToast({
                 title: res.data.message,
                 icon: 'success'
@@ -96,8 +94,6 @@ Page({
               console.warn(err)
             }
           })
-        } else {
-          // 取消加入
         }
       }
     })
@@ -125,8 +121,7 @@ Page({
   previewImage: function (e) {
     var current = e.target.dataset.src;
     var tempImages = [];
-    console.log(this.data.activity.image)
-    tempImages.push(this.data.activity.image)
+    tempImages.push(this.data.activity.image);
 
     wx.previewImage({
       current: current,
@@ -139,7 +134,7 @@ Page({
   replyTap: function () {
     var that = this;
     var from_uid = this.data.userInfo.id;
-    console.log(from_uid)
+    // 创建一条评论
     wx.request({
       url: 'http://localhost:3000/comment/create_comment',
       data: {
@@ -151,7 +146,6 @@ Page({
       },
       method: 'POST',
       success: function (res) {
-        console.log(res)
         that.data.comments.push(res.data.data);
         that.setData({
           comments: that.data.comments
@@ -198,14 +192,13 @@ Page({
       },
       method: 'POST',
       success: function (res) {
-        // console.log(res.data.data.like_peaples)
         that.setData({
           likePeaple: res.data.data.like_peaples
         })
 
         var likeUids = res.data.data.like_uids;
         var likeUidsArr = likeUids.split(',');
-        // console.log(likeUidsArr)
+
         if (likeUidsArr.indexOf(from_uid) != -1) {
           that.setData({
             hadLike: true
@@ -218,7 +211,7 @@ Page({
 
       },
       fail: function (err) {
-        console.log(err)
+        console.warn(err)
       }
     })
   },

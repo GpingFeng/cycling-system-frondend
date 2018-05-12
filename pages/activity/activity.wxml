@@ -3,10 +3,10 @@
 <!-- 帖子列表 -->
 <view class="activity-list">
   <block wx:for="{{ activityList }}" wx:key="index">
-    <view 
+    <view
       class="activity-item" 
       bindtap="goActivityDetail"
-      id="{{item.id}}">
+      id="{{ item.id }}">
       <image src="{{ item.image }}" class="activity-image"></image>
       <view class="activity-intro-text">
         <text class="activity-title">{{ item.title }}</text>

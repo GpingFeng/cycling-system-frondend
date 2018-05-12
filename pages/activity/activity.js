@@ -1,5 +1,4 @@
 // pages/activity/activity.js
-
 Page({
   /**
    * 页面的初始数据
@@ -9,7 +8,6 @@ Page({
     activityList: []
   },
   goActivityDetail: function (e) {
-    console.log(e.currentTarget.id);
     var id = e.currentTarget.id
     wx.navigateTo({
       url: '../activity-detail/activity-detail?id=' + id,
@@ -20,11 +18,11 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    // 请求得到活动列表
     wx.request({
       url: 'http://localhost:3000/activity/get_all_activities',
       data: {},
       success: (res) => {
-        console.log(res.data)
         that.setData({
           activityList: res.data.data
         })

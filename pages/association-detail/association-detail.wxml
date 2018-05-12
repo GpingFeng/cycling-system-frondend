@@ -3,11 +3,11 @@
   <!-- 发表人 -->
   <view class="con-container">
     <view class="user">
-    <image src="{{ association.avatar }}" class="avatar"></image>
-    <view class="user-info-text">
-      <text class="username">{{ association.username }}</text>
-      <text class="posttime">{{ association.post_time }}</text>
-    </view>
+      <image src="{{ association.avatar }}" class="avatar"></image>
+      <view class="user-info-text">
+        <text class="username">{{ association.username }}</text>
+        <text class="posttime">{{ association.post_time }}</text>
+      </view>
     </view>
     <!-- 帖子内容 -->
     <view class='text-title'>

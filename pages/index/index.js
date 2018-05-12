@@ -26,13 +26,14 @@ Page({
    * 点击轮播图
    */
   goActivityDetail: function (e) {
-    console.log(e.currentTarget.id);
     var id = e.currentTarget.id
     wx.navigateTo({
       url: '../activity-detail/activity-detail?id=' + id,
     })
   },
-  // 跳转到具体的帖子页面
+  /**
+   * 跳转到具体的帖子页面
+   */
   goPostItem: function (target) {
     var postId = target.currentTarget.id;
     console.log(postId)
@@ -41,7 +42,9 @@ Page({
       url: '../post-detail/post-detail?id=' + postId,
     })
   },
-  // 点击创建帖子
+  /**
+   * 点击创建帖子
+   */
   createPostBtn: function () {
     wx.navigateTo({
       url: '../create-post/create-post',
@@ -54,7 +57,6 @@ Page({
       url: 'http://localhost:3000/post/get_all_posts',
       data: {},
       success: function (res) {
-        console.log(res.data.data.activities)
         that.setData({
           activities: res.data.data.activities,
           postList: res.data.data.posts
@@ -79,7 +81,6 @@ Page({
           userInfo: res.userInfo,
           hasUserInfo: true
         })
-        console.log(app.globalData.userInfo)
       }
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理

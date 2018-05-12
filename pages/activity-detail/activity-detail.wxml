@@ -1,78 +1,78 @@
 <!--pages/activity-detail/activity-detail.wxml-->
 <view>
-<!-- 发表人 -->
-<view class="con-container">
-  <view class="user">
-  <image src="{{ activity.avatar }}" class="avatar"></image>
-  <view class="user-info-text">
-    <text class="username">{{ activity.username }}</text>
-    <text class="posttime">{{ activity.post_time }}</text>
-  </view>
-  </view>
-  <!-- 帖子内容 -->
-  <view class="text-content" bindtap="goPostItem">{{ activity.content_text }}</view>
-  <view class="post-images-container">
-    <image 
-      src="{{ activity.image }}" 
-      mode="aspectFill"
-      bindtap="previewImage" ></image>
-  </view>
-  <!-- 点赞和评论 -->
-  <view class="like-comments">
-    <text 
-      class="like iconfont icon-appreciate_light"
-      bindtap="likeTap"
-      id="{{ activity.id }}"
-      wx:if="{{ !hadLike }}">{{ likePeaple }}</text>
-    <text 
-      wx:else
-      class="like iconfont icon-appreciate_fill_light"
-      bindtap="likeTap"
-      id="{{ activity.id }}">{{ likePeaple }}</text>
-    <text 
-      class="comment iconfont icon-comment_light" 
-      bindtap="commentTap"
-      id="{{ activity.id }}">{{ comments.length }}</text>
-  </view>
-  <!-- 评论区 -->
-  <view class="triangle"></view>
-  <view class="comments">
-    <view
-      class="comment"
-      wx:for="{{ comments }}" 
-      wx:for-item="comment"
-      wx:key="index">
-      <text class="comment-username">
-      {{ comment.username }}</text>
-      <text
-        class="comment-username" 
-        wx:if="{{comment.to_username}}"> @ {{ comment.to_username }}</text>：
+  <!-- 发表人 -->
+  <view class="con-container">
+    <view class="user">
+      <image src="{{ activity.avatar }}" class="avatar"></image>
+      <view class="user-info-text">
+        <text class="username">{{ activity.username }}</text>
+        <text class="posttime">{{ activity.post_time }}</text>
+      </view>
+    </view>
+    <!-- 帖子内容 -->
+    <view class="text-content" bindtap="goPostItem">{{ activity.content_text }}</view>
+    <view class="post-images-container">
+      <image 
+        src="{{ activity.image }}" 
+        mode="aspectFill"
+        bindtap="previewImage" ></image>
+    </view>
+    <!-- 点赞和评论 -->
+    <view class="like-comments">
       <text 
-        id="{{ comment.from_uid }}"
-        bindtap="replyUser">{{comment.content}}</text>
+        class="like iconfont icon-appreciate_light"
+        bindtap="likeTap"
+        id="{{ activity.id }}"
+        wx:if="{{ !hadLike }}">{{ likePeaple }}</text>
+      <text 
+        wx:else
+        class="like iconfont icon-appreciate_fill_light"
+        bindtap="likeTap"
+        id="{{ activity.id }}">{{ likePeaple }}</text>
+      <text 
+        class="comment iconfont icon-comment_light" 
+        bindtap="commentTap"
+        id="{{ activity.id }}">{{ comments.length }}</text>
     </view>
-    <view
-      class="reply-section"
-      id="reply-section"
-      wx:if="{{ isShowMask }}">
-      <textarea
-        id="comment-textarea" 
-        class="comment-textarea"
-        placeholder="回复{{comment.fromUsername}}"
-        bindinput="replyInput"
-        focus></textarea>
-      <button 
-        class="close" 
-        size='mini'
-        bindtap="closeMask">关闭</button>
-      <button 
-        class="reply"
-        bindtap="replyTap"
-        size='mini' 
-        type='primary'>回复</button>
+    <!-- 评论区 -->
+    <view class="triangle"></view>
+    <view class="comments">
+      <view
+        class="comment"
+        wx:for="{{ comments }}" 
+        wx:for-item="comment"
+        wx:key="index">
+        <text class="comment-username">
+        {{ comment.username }}</text>
+        <text
+          class="comment-username" 
+          wx:if="{{comment.to_username}}"> @ {{ comment.to_username }}</text>：
+        <text 
+          id="{{ comment.from_uid }}"
+          bindtap="replyUser">{{comment.content}}</text>
+      </view>
+      <view
+        class="reply-section"
+        id="reply-section"
+        wx:if="{{ isShowMask }}">
+        <textarea
+          id="comment-textarea" 
+          class="comment-textarea"
+          placeholder="回复{{comment.fromUsername}}"
+          bindinput="replyInput"
+          focus></textarea>
+        <button 
+          class="close" 
+          size='mini'
+          bindtap="closeMask">关闭</button>
+        <button 
+          class="reply"
+          bindtap="replyTap"
+          size='mini' 
+          type='primary'>回复</button>
+      </view>
     </view>
   </view>
-</view>
   <view class="add-button" bindtap="joinActivity">
     <text class="iconfont icon-round_add"></text>
   </view>

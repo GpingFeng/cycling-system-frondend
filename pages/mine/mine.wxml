@@ -4,14 +4,13 @@
     <image src="{{ userInfo.avatarUrl }}" class="user-avatar"></image>
     <text class="user-username">{{ userInfo.nickName }}</text>
   </view>
-
   <!-- <view class="navigation mine-posts">
     <text class="iconfont icon-edit"><text class="text">我的帖子</text></text>
   </view> -->
   <view 
     class="navigation mine-association"
     bindtap="toMyAssociation">
-    <text 
+    <text
       class="iconfont icon-group">
       <text class="text">我的车协</text>
     </text>

@@ -1,5 +1,6 @@
 /* pages/mine/mine.wxss */
 @import "../../lib/style/font.wxss";
+
 .mine-info {
   display: flex;
   align-items: center;

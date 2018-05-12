@@ -1,5 +1,6 @@
 /* pages/association/association.wxss */
 @import "../../lib/style/font.wxss";
+
 .association-list {
   border-top: 2px solid #cccccc;
 }

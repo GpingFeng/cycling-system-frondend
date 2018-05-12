@@ -42,10 +42,11 @@
       </view>
     </view>
     <!-- 点赞评论 -->
-    <!-- <view class="like-comments">
+     <!-- <view class="like-comments">
       <text class="like iconfont icon-appreciate_light">{{ post.like_peaples }}</text>
-      <text class="comment iconfont icon-comment_light">{{ post.comments.length }}</text>
-    </view> -->
+      <text class="comment iconfont icon-comment_light">
+      {{ post.comments.length }}</text>
+    </view>  -->
     <include src="../common/wxml/line.wxml" />
   </view>
   <!-- 点击添加帖子 -->

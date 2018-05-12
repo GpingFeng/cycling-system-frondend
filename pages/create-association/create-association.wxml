@@ -26,7 +26,11 @@
     <view class="uploader-files">
       <block wx:for="{{imageList}}" wx:for-item="image" wx:key="index">
         <view class="uploader-file">
-          <image class="uploader-img" src="{{image}}" data-src="{{image}}" bindtap="previewImage"></image>
+          <image 
+            class="uploader-img" 
+            src="{{image}}" 
+            data-src="{{image}}" 
+            bindtap="previewImage"></image>
         </view>
       </block>
       <view class="uploader-input-box">

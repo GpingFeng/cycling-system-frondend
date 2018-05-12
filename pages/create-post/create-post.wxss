@@ -1,5 +1,6 @@
 /* pages/create-post/create-post.wxss */
 @import "../../lib/style/font.wxss";
+
 .text {
   padding: 30rpx 30rpx 0;
   height: 350rpx;

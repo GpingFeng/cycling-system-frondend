@@ -13,14 +13,14 @@ Page({
     // 用户信息
     userInfo: {}
   },
-  // 点击选择图片
+  /**
+   * 点击选择图片
+   */
   chooseImage: function () {
-    console.log('choose')
     var that = this;
     wx.chooseImage({
       sourceType: ['album', 'camera'],
       success: function(res) {
-        console.log(res)
         that.data.imageList.push(res.tempFilePaths[0]);
         var temp = that.data.imageList;
         that.setData({
@@ -29,7 +29,9 @@ Page({
       },
     })
   },
-  // 点击预览图片
+  /**
+   * 点击预览图片
+   */
   previewImage: function (e) {
     var current = e.target.dataset.src
     var temp = this.data.imageList
@@ -51,8 +53,8 @@ Page({
    */
   publishPost: function () {
     var that = this;
-    console.log(this.data.userInfo.id)
     var uid = this.data.userInfo.id;
+    // 创建帖子
     wx.request({
       url: 'http://localhost:3000/post/create_post',
       data: {
@@ -61,8 +63,8 @@ Page({
       },
       method: 'PUT',
       success: function (res) {
-        console.log(res.data.data.id);
         var postId = res.data.data.id;
+        // 图片上传
         that.data.imageList.forEach((image) => {
           wx.uploadFile({
             url: 'http://localhost:3000/images/create_image',
@@ -94,7 +96,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(app.globalData.userInfo)
     // 获得全局的用户信息
     this.setData({
       userInfo: app.globalData.userInfo

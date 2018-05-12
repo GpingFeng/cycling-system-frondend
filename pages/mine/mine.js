@@ -22,14 +22,15 @@ Page({
    */
   toMyAssociation: function () {
     var from_uid = this.data.userInfo.id;
+    // 我的车协接口
     wx.request({
       url: 'http://localhost:3000/users/get_association_by_user',
       data: {
         userId: from_uid
       },
       success: function (res) {
-        var id = res.data.data
-        console.log(id)
+        var id = res.data.data;
+        // 跳转到详情页
         wx.navigateTo({
           url: '../association-detail/association-detail?id=' + id
         })

@@ -56,7 +56,6 @@
 .post-images-container {
   border-bottom: 1px solid #cccccc;
   display: flex;
-  /* flex-direction: column; */
   flex-wrap: wrap;
   justify-content: left;
   margin-top: 30rpx;
