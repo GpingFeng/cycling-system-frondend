@@ -7,7 +7,10 @@
       class="activity-item" 
       bindtap="goActivityDetail"
       id="{{ item.id }}">
-      <image src="{{ item.image }}" class="activity-image"></image>
+      <image 
+        src="{{ item.image }}"
+        class="activity-image"
+        mode="aspectFill"></image>
       <view class="activity-intro-text">
         <text class="activity-title">{{ item.title }}</text>
         <text class="activity-intro">{{ item.content_text }}</text>

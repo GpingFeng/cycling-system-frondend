@@ -60,6 +60,14 @@ App({
                 method: 'POST',
                 success: (res) => {
                   console.log('登录成功');
+                  //写入缓存
+                  wx.setStorage({
+                    key: 'userInfo',
+                    data: that.globalData.userInfo,
+                    success: function (res) {
+                      console.log('insert')
+                    }
+                  })
                 },
                 fail: (err) => {
                   console.warn(err)

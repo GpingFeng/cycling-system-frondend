@@ -6,12 +6,16 @@
       bindtap="goAssociationDetail" 
       class="association-item"
       id="{{ item.id }}">
-      <image src="{{ item.images[0].address }}" class="association-image"></image>
+      <image 
+        src="{{ item.images[0].address }}"
+        class="association-image"
+        mode="aspectFill"></image>
       <view class="association-intro-text">
         <text class="association-title">{{ item.nickname }}</text>
         <text class="association-intro">{{ item.intro }}</text>
       </view>
     </view>
+    <include src="../common/wxml/line.wxml" />
   </block>
   <!-- 点击创建车协 -->
   <view class="add-button" bindtap="goCreateItem">

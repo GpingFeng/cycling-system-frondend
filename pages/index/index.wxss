@@ -2,7 +2,7 @@
 
 /**index.wxss**/
 .container {
-  padding-top: 20rpx;
+  padding: 0rpx;
 }
 /* 轮播 */
 .page-section-spacing {
@@ -102,21 +102,32 @@
 }
 
 .post-images-container image {
-  max-width: 50%;
   font-size: 0;
+  width: 300px;
 }
 
 .like-comments {
-  width: 100%;
   height: 50rpx;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  margin-right: 30rpx;
 }
 
 .like-comments text {
-  padding-right: 40rpx;
   font-size: 34rpx;
+}
+
+.like-comments .comment {
+  margin-left: 50rpx;
+}
+
+.like-comments {
+  margin-right: 30rpx;
+}
+
+.complete {
+  margin: 50rpx auto;
 }
 
 /* 点击加入  */
@@ -128,4 +139,11 @@
 
 .add-button > text {
   font-size: 100rpx;
+}
+
+.comment-input {
+  width: 100%;
+  background: #cccccc;
+  position: fixed;
+  bottom: 0rpx;
 }

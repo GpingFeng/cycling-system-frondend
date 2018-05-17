@@ -21,47 +21,130 @@ Page({
     // 回复框输入的信息
     replyInput: '',
     // 用户信息
-    userInfo: {}
+    userInfo: {},
+    // 开始点击的时间
+    startTime: 0,
+    touch_end: 0,
+    touch_start: 0,
+    iscomment: false
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     // 获得全局的用户信息
-    this.setData({
-      userInfo: app.globalData.userInfo
-    })
     var that = this;
-    var from_uid = this.data.userInfo.id;
-    // 请求获得详情页面数据
-    wx.request({
-      url: 'http://localhost:3000/post/get_post',
-      data: {
-        id: options.id
-      },
-      success: function(res) {
+    wx.getStorage({
+      key: 'userInfo',
+      success: function (res) {
+        console.log(res)
+        // 获得全局的用户信息
+        var from_uid = res.data.id;
         that.setData({
-          post: res.data.data,
-          likePeaple: res.data.data.like_peaples,
-          comments: res.data.data.comments
+          userInfo: res.data
         })
-        var likeUids = res.data.data.like_uids;
-        var likeUidsArr = likeUids.split(',');
-        // 根据返回的点赞用户判断是否已经点赞
-        if (likeUidsArr.indexOf(from_uid) != -1) {
-          that.setData({
-            hadLike: true
-          })
-        } else {
-          that.setData({
-            hadLike: false
-          })
-        }
+        // 请求获得详情页面数据
+        wx.request({
+          url: 'http://localhost:3000/post/get_post',
+          data: {
+            id: options.id
+          },
+          success: function (res) {
+            that.setData({
+              post: res.data.data,
+              likePeaple: res.data.data.like_peaples,
+              comments: res.data.data.comments
+            })
+            var likeUids = res.data.data.like_uids;
+            console.log(likeUids)
+            var likeUidsArr = likeUids.split(',');
+            console.log(from_uid)
+            console.log(likeUidsArr)
+            console.log(likeUidsArr.indexOf(from_uid))
+            // 根据返回的点赞用户判断是否已经点赞
+            if (likeUidsArr.indexOf(from_uid) != -1) {
+              that.setData({
+                hadLike: true
+              })
+            } else {
+              that.setData({
+                hadLike: false
+              })
+            }
+          },
+          fail: function (err) {
+            console.warn(err);
+          }
+        })
       },
-      fail: function (err) {
-        console.warn(err);
-      }
+    }) 
+  },
+  //按下事件开始  
+  mytouchstart: function (e) {
+    let that = this;
+    that.setData({
+      touch_start: e.timeStamp
     })
+    console.log(e.timeStamp + '- touch-start')
+  },
+  // 根据按下时间和结束时间差进行不同的操作
+  isTapComment: function (e) {
+    let that = this;
+    //触摸时间距离页面打开的毫秒数  
+    var touchTime = that.data.touch_end - that.data.touch_start;
+    console.log(touchTime);  
+    if (touchTime > 350) {
+      console.log('da');
+      this.deleteComment(e)
+    } else {
+      console.log('xiao');
+      that.replyUser(e)
+    }
+  },
+  //按下事件结束  
+  mytouchend: function (e) {
+    let that = this;
+    console.log(typeof(e.timeStamp))
+    that.setData({
+      touch_end: e.timeStamp
+    })
+    console.log(e.timeStamp + '- touch-end')
+  },
+  deleteComment: function (e) {
+    console.log('-------------')
+    var that = this;
+    console.log(e)
+    var commentId = e.currentTarget.dataset.commentid,
+        postUserId = e.currentTarget.dataset.postuserid,
+        userId = that.data.userInfo.id,
+        index = e.currentTarget.dataset.id;
+    if (userId == postUserId) {
+      wx.showModal({
+        title: '提示',
+        content: '确定删除么',
+        success: function (res) {
+          if (res.confirm) {
+            wx.request({
+              url: 'http://localhost:3000/post/delete_comment',
+              data: {
+                id: commentId
+              },
+              method: 'DELETE',
+              success: function (res) {
+                that.data.comments.splice(index, 1);
+                that.setData({
+                  comments: that.data.comments
+                })
+                console.log(res)
+              },
+              fail: function (err) {
+                console.warn(err)
+              }
+            })
+          }
+        }
+      })
+    }
   },
   /**
    * 用户输入回复框 
@@ -76,8 +159,8 @@ Page({
    */
   replyUser: function (target) {
     this.setData({
-      isShowMask: true,
-      replyToUserId: target.currentTarget.id
+      iscomment: true,
+      replyToUserId: target.currentTarget.dataset.postuserid
     })
   },
   /**
@@ -98,14 +181,15 @@ Page({
   /**
    * 回复
    */
-  replyTap: function () {
+  submitComment: function (e) {
     var that = this;
     var from_uid = this.data.userInfo.id;
+    var content = e.detail.value;
     wx.request({
       url: 'http://localhost:3000/comment/create_comment',
       data: {
         from_uid: from_uid,
-        content: that.data.replyInput,
+        content: content,
         topic_type: 0,
         topic_id: that.data.post.id,
         to_uid: that.data.replyToUserId
@@ -130,22 +214,24 @@ Page({
    */
   commentTap: function () {
     this.setData({
-      isShowMask: true,
+      iscomment: true,
       replyToUserId: ''
     })
   },
   /**
-   * 关闭弹窗
+   * 评论框失去焦点
    */
-  closeMask: function () {
-    this.setData({
-      isShowMask: false
+  commentBlur: function () {
+    var that = this;
+    that.setData({
+      iscomment: false
     })
   },
   /**
    * 点赞
    */
   likeTap: function (target) {
+    
     var from_uid = this.data.userInfo.id;
     var id = target.currentTarget.id
     var that = this;

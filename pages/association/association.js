@@ -30,10 +30,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // 获得全局的用户信息
-    this.setData({
-      userInfo: app.globalData.userInfo
+    var that = this;
+    wx.getStorage({
+      key: 'userInfo',
+      success: function(res) {
+        console.log(res)
+        // 获得全局的用户信息
+        that.setData({
+          userInfo: res.data
+        })
+      },
     })
+    
     var that = this,
         uid = this.data.userInfo.id;
     wx.request({

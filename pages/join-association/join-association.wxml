@@ -1,20 +1,29 @@
 <!--pages/join-association/join-association.wxml-->
 <view>
-  <view class="title">姓名</view>
+  <view class="title">真实姓名</view>
   <view class="input-content">
-    <input class="name" placeholder="请输入你的真实姓名" ></input>
+    <input 
+      class="name" 
+      placeholder="请输入你的真实姓名"
+      bindinput="inputname"></input>
   </view>
-  <view class="title">所在学校</view>
+  <view class="title">联系手机</view>
   <view class="input-content">
-    <input class="nickname" placeholder="请输入你所在的学校" ></input>
+    <input 
+      class="phone" 
+      placeholder="请输入你联系手机"
+      bindinput="inputphone" ></input>
   </view>
-  <view class="title">加入原因</view>
+  <view class="title">联系邮箱</view>
   <view class="input-content">
-    <textarea 
-      class=intro" 
-      placeholder="请输入加入原因"></textarea>
+    <input 
+      class="mail" 
+      placeholder="请输入你的联系邮箱"
+      bindinput="inputmail" ></input>
   </view>
   <view class="submit-btn">
-    <button type='primary'>提交</button>
+    <button 
+      type='primary'
+      bindtap='joinAssociation'>提交</button>
   </view>
 </view>

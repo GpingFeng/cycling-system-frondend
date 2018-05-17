@@ -28,10 +28,17 @@ Page({
    */
   onLoad: function (options) {
     // 获得全局的用户信息
-    this.setData({
-      userInfo: app.globalData.userInfo
-    })
     var that = this;
+    wx.getStorage({
+      key: 'userInfo',
+      success: function (res) {
+        console.log(res)
+        // 获得全局的用户信息
+        that.setData({
+          userInfo: res.data
+        })
+      },
+    })
     var from_uid = this.data.userInfo.id;
     
     // 请求获得详情页面数据
@@ -69,33 +76,9 @@ Page({
    */
   joinActivity: function () {
     var that = this;
-    wx.showModal({
-      title: '提示',
-      content: '是否加入该活动',
-      success: function (res) {
-        if (res.confirm) {
-          // 确认加入
-          var activityId = that.data.activity.id,
-              userId = that.data.userInfo.id;
-          // 用户加入活动接口
-          wx.request({
-            url: 'http://localhost:3000/useractivity/create_user_activity',
-            data: {
-              activityId: activityId,
-              userId: userId
-            },
-            success: (res) => {
-              wx.showToast({
-                title: res.data.message,
-                icon: 'success'
-              })
-            },
-            fail: (err) => {
-              console.warn(err)
-            }
-          })
-        }
-      }
+    var activityId = that.data.activity.id;
+    wx.navigateTo({
+      url: '../join-activity/join-activity?id=' + activityId
     })
   },
   /**

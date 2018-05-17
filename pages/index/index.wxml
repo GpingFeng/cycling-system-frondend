@@ -37,17 +37,50 @@
       <view class="text-content">{{ post.content_text  }}</view>
       <view class="post-images-container" wx:if="{{ post.images.length != 0 }}">
         <image
-        src="{{ post.images[0].address }}" 
-        mode="aspectFill" ></image>
+          catchtap='previewImage'
+          id="{{ post.images[0].address }}"
+          src="{{ post.images[0].address }}" 
+          mode="aspectFill" ></image>
       </view>
     </view>
-    <!-- 点赞评论 -->
-     <!-- <view class="like-comments">
-      <text class="like iconfont icon-appreciate_light">{{ post.like_peaples }}</text>
-      <text class="comment iconfont icon-comment_light">
-      {{ post.comments.length }}</text>
-    </view>  -->
+    <!-- 点赞和评论 -->
+    <view class="like-comments">
+      <text 
+        class="like iconfont icon-appreciate_light"
+        bindtap="likeTap"
+        data-id="{{index}}"
+        id="{{ post.id }}"
+        wx:if="{{ !post.hasLike }}">{{ post.like_peaples }}
+        </text>
+      <text 
+        wx:else
+        class="like iconfont icon-appreciate_fill_light"
+        bindtap="likeTap"
+        data-id="{{index}}"
+        id="{{ post.id }}">{{ post.like_peaples }}
+        </text>
+      <text 
+        class="comment iconfont icon-comment_light" 
+        bindtap="commentTap"
+        data-id="{{index}}"
+        id="{{ post.id }}">{{ post.comments.length }}
+        </text>
+    </view>
     <include src="../common/wxml/line.wxml" />
+  </view>
+  <!-- 提示上拉加载或者已无更加 -->
+  <view wx:if="{{hasMore}}">正在加载更多数据...</view>  
+  <view wx:else>已经加载全部数据</view> 
+  <!--评论框 -->
+  <view 
+    class="comment-input"
+    wx:if="{{ iscomment }}">
+    <input 
+      focus
+      placeholder='请输入评论'
+      bindblur="commentBlur"
+      bindconfirm="submitComment"
+      confirm-type="send"></input>
   </view>
   <!-- 点击添加帖子 -->
   <view class="add-button" bindtap="createPostBtn">

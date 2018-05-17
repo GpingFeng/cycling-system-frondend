@@ -38,42 +38,11 @@ Page({
   },
   joinassociation: function () {
     var that = this;
-    wx.showModal({
-      title: '提示',
-      content: '是否加入该车协',
-      success: function (res) {
-        // 确认加入
-        if (res.confirm) {
-          var associationId = that.data.association.id,
-              userId = that.data.userInfo.id;
-          // 用户加入车协接口
-          wx.request({
-            url: 'http://localhost:3000/users/join_association',
-            data: {
-              associationId: associationId,
-              userId: userId
-            },
-            method: 'PUT',
-            success: (res) => {
-              if (res.data.data) {
-                wx.showToast({
-                  title: res.data.message,
-                  icon: 'success'
-                })
-              } else {
-                wx.showToast({
-                  title: res.data.message,
-                  icon: 'none'
-                })
-              }
-            },
-            fail: (err) => {
-              console.warn(err)
-            }
-          })
-        }
-      }
+    var associationId = that.data.association.id
+    wx.navigateTo({
+      url: '../join-association/join-association?id='+ associationId,
     })
+    
   },
   /**
    * 预览图片
