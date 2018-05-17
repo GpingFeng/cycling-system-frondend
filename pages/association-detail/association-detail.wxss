@@ -160,7 +160,8 @@
 
 .text-title {
   font-weight: bolder;
-  margin-left: 50rpx;
+  text-align:center;
+  margin:6px;
 }
 
 /* 已加入车协人头像 */

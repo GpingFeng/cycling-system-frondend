@@ -56,7 +56,7 @@ Page({
           wx.uploadFile({
             url: 'http://localhost:3000/images/create_image',
             filePath: image,
-            name: 'image11',
+            name: 'image',
             header: {
               'content-type': 'multipart/form-data'
             }, // 设置请求的 header
@@ -67,6 +67,15 @@ Page({
             },
             success: function (res) {
               console.log(res);
+              // 发表成功后跳转
+              wx.switchTab({
+                url: '../association/association',
+                success: function (e) {
+                  var page = getCurrentPages().pop();
+                  if (page == undefined || page == null) return;
+                  page.onLoad();
+                }
+              })
             },
             fail: function (err) {
               console.warn(err);

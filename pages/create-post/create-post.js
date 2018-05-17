@@ -65,6 +65,17 @@ Page({
       success: function (res) {
         var postId = res.data.data.id;
         // 图片上传
+        if (that.data.imageList.length == 0) {
+          // 发表成功后跳转
+          wx.switchTab({
+            url: '../index/index',
+            success: function (e) {
+              var page = getCurrentPages().pop();
+              if (page == undefined || page == null) return;
+              page.onLoad();
+            }
+          })
+        }
         that.data.imageList.forEach((image) => {
           wx.uploadFile({
             url: 'http://localhost:3000/images/create_image',
@@ -80,6 +91,15 @@ Page({
             },
             success: function (res) {
               console.log(res);
+              // 发表成功后跳转
+              wx.switchTab({
+                url: '../index/index',
+                success: function (e) {
+                  var page = getCurrentPages().pop();
+                  if (page == undefined || page == null) return;
+                  page.onLoad();
+                }
+              })
             },
             fail: function (err) {
               console.warn(err);

@@ -84,6 +84,16 @@ Page({
                   title: res.data.message,
                   icon: 'success'
                 })
+
+                // 发表成功后跳转
+                wx.switchTab({
+                  url: '../activity/activity',
+                  success: function (e) {
+                    var page = getCurrentPages().pop();
+                    if (page == undefined || page == null) return;
+                    page.onLoad();
+                  }
+                })
               },
               fail: (err) => {
                 console.warn(err)

@@ -91,6 +91,17 @@ Page({
                     icon: 'none'
                   })
                 }
+                
+                // 发表成功后跳转
+                wx.switchTab({
+                  url: '../association/association',
+                  success: function (e) {
+                    var page = getCurrentPages().pop();
+                    if (page == undefined || page == null) return;
+                    page.onLoad();
+                  }
+                })
+
               },
               fail: (err) => {
                 console.warn(err)
